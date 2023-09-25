@@ -19,10 +19,6 @@
                 text-align: center;
             }
 
-            &:first-child(2n){
-                text-align: center;
-            }
-
             &:last-child{
                 text-align: center;
             }
