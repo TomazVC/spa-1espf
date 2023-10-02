@@ -1,5 +1,5 @@
 
-export default function Conteudo(props) {
+export default function Conteudo() {
 
   return (
     <>
