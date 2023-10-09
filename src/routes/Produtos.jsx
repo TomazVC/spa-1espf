@@ -7,9 +7,10 @@ import { useEffect, useState } from "react";
 export default function Produtos() {
   document.title = "Lista de Produtos";
 
-  const[listaProdutosApi,setListaProdutosApi] = useState([])
+  const[listaProdutosApi,setListaProdutosApi] = useState([]);
 
   useEffect(()=>{
+
     //Realizando o Request
     fetch("http://localhost:5000/produtos")
     //Recebendo o Response e transformando em json
@@ -18,8 +19,9 @@ export default function Produtos() {
     .then((response)=> setListaProdutosApi(response))
     //Exibindo caso ocorra algum erro.
     .catch(error=> console.log(error));
-  },[]);
 
+  },[]);
+  
 
   return (
     <div>
