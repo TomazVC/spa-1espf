@@ -3,38 +3,38 @@ import { useParams } from 'react-router-dom'
 
 export default function EditarProdutos() {
 
-  const {id} = useParams();
+    const {id} = useParams();
 
-  document.title = "Editar Produtos " + id;
+    document.title = "Editar Produtos " + id; 
 
-  const[produto,setProduto] = useState({
-    id:id,
-    nome:"",
-    desc:"",
-    preco:"",
-  });
+    const[produto,setProduto] = useState({
+      id:id,
+      nome:'',
+      desc:'',
+      preco:''
+    });
 
-  //Criar uma estratégia para recuperar o produto da API-JSON com fetch, utilizando GET:
-  useEffect(()=>{
-    fetch(`http://localhost:5000/produtos/${id}`)
-    .then((response)=>response.json())
-    .then((response)=>setProduto(response))
-    .catch(error=>console.log(error));
-  },[id])
+    //Criar uma estratégia para recuperar o produto da API-JSON com fetch, utilizando GET:
+    useEffect(()=>{
+      
+      fetch(`http://localhost:5000/produtos/${id}`)
+      .then((response)=> response.json())
+      .then((response)=> setProduto(response))
+      .catch(error=> console.log(error));
 
-  const handleChange = (e)=>{
+    },[id]);
 
-    //Destructuring
-    const{name, value} = e.target;
+//Terceira forma de input com SPREAD
 
-    if(name == "nome"){
-      setProduto({"nome":value,"desc":produto.desc,"preco":produto.preco});
-    }else if (name == "desc"){
-      setProduto({"nome":produto.nome,"desc":value,"preco":produto.preco});
-    }else if (name == "preco"){
-      setProduto({"nome":produto.nome,"desc":produto.desc,"preco":value});
+    const handleChange = (e)=>{
+
+      //Destructuring
+      const {name,value} = e.target;
+
+      //Setando os dados diretamente no objeto atravé de SPREAD
+      setProduto({...produto,[name]:value});
+      
     }
-  }
 
   return (
     <div>
@@ -45,15 +45,15 @@ export default function EditarProdutos() {
                 <legend>Produto Selecionado</legend>
                 <div>
                   <label htmlFor="">Nome:</label>
-                  <input type="text" name="nome" placeholder="Digite o nome do Produto." value={(produto.nome)} onChange={handleChange}/>
+                  <input type="text" name="nome" placeholder="Digite o nome do Produto." value={produto.nome} onChange={handleChange}/>
                 </div>
                 <div>
                   <label htmlFor="">Descrição:</label>
-                  <input type="text" name="desc" placeholder="Digite a descrição do Produto." value={(produto.desc)} onChange={handleChange}/>
+                  <input type="text" name="desc" placeholder="Digite a descrição do Produto." value={produto.desc} onChange={handleChange}/>
                 </div>
                 <div>
                   <label htmlFor="">Preço:</label>
-                  <input type="text" name="preco" placeholder="Digite o preço do Produto." value={(produto.preco)} onChange={handleChange}/>
+                  <input type="text" name="preco" placeholder="Digite o preço do Produto." value={produto.preco} onChange={handleChange}/>
                 </div>
                 <div>
                   <button>EDITAR</button>
@@ -66,7 +66,58 @@ export default function EditarProdutos() {
   )
 }
 
+
+
+//Segunda forma de input com Destructuring
+
+//   const handleChange = (e)=>{
+
+//     //Destructuring
+//     const{name, value} = e.target;
+
+//     if(name == "nome"){
+//       setProduto({"nome":value,"desc":produto.desc,"preco":produto.preco});
+//     }else if (name == "desc"){
+//       setProduto({"nome":produto.nome,"desc":value,"preco":produto.preco});
+//     }else if (name == "preco"){
+//       setProduto({"nome":produto.nome,"desc":produto.desc,"preco":value});
+//     }
+//   }
+
+//   return (
+//     <div>
+//         <h1>Editar Produtos</h1>
+//           <div>
+//             <form>
+//               <fieldset>
+//                 <legend>Produto Selecionado</legend>
+//                 <div>
+//                   <label htmlFor="">Nome:</label>
+//                   <input type="text" name="nome" placeholder="Digite o nome do Produto." value={(produto.nome)} onChange={handleChange}/>
+//                 </div>
+//                 <div>
+//                   <label htmlFor="">Descrição:</label>
+//                   <input type="text" name="desc" placeholder="Digite a descrição do Produto." value={(produto.desc)} onChange={handleChange}/>
+//                 </div>
+//                 <div>
+//                   <label htmlFor="">Preço:</label>
+//                   <input type="text" name="preco" placeholder="Digite o preço do Produto." value={(produto.preco)} onChange={handleChange}/>
+//                 </div>
+//                 <div>
+//                   <button>EDITAR</button>
+//                 </div>
+//               </fieldset>
+//             </form>
+//           </div>
+
+//     </div>
+//   )
+// }
+
+
+
 //Primeira forma de input com useState
+
 // return (
 //   <div>
 //       <h1>Editar Produtos</h1>
