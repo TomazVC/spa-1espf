@@ -84,82 +84,33 @@ export default function EditarProdutos() {
 
 
 
-//Segunda forma de input com Destructuring
-
-//   const handleChange = (e)=>{
-
-//     //Destructuring
-//     const{name, value} = e.target;
-
-//     if(name == "nome"){
-//       setProduto({"nome":value,"desc":produto.desc,"preco":produto.preco});
-//     }else if (name == "desc"){
-//       setProduto({"nome":produto.nome,"desc":value,"preco":produto.preco});
-//     }else if (name == "preco"){
-//       setProduto({"nome":produto.nome,"desc":produto.desc,"preco":value});
-//     }
-//   }
-
-//   return (
-//     <div>
-//         <h1>Editar Produtos</h1>
-//           <div>
-//             <form>
-//               <fieldset>
-//                 <legend>Produto Selecionado</legend>
-//                 <div>
-//                   <label htmlFor="">Nome:</label>
-//                   <input type="text" name="nome" placeholder="Digite o nome do Produto." value={(produto.nome)} onChange={handleChange}/>
-//                 </div>
-//                 <div>
-//                   <label htmlFor="">Descrição:</label>
-//                   <input type="text" name="desc" placeholder="Digite a descrição do Produto." value={(produto.desc)} onChange={handleChange}/>
-//                 </div>
-//                 <div>
-//                   <label htmlFor="">Preço:</label>
-//                   <input type="text" name="preco" placeholder="Digite o preço do Produto." value={(produto.preco)} onChange={handleChange}/>
-//                 </div>
-//                 <div>
-//                   <button>EDITAR</button>
-//                 </div>
-//               </fieldset>
-//             </form>
-//           </div>
-
-//     </div>
-//   )
+//2ª FORM DE INPUT COM useState
+// if(name == "nome"){
+//   setProduto({"nome":value,"desc":produto.desc,"preco":produto.preco});
+// }else if(name == "desc"){
+//   setProduto({"nome":produto.nome,"desc":value,"preco":produto.preco});
+// }else if(name == "preco"){
+//   setProduto({"nome":produto.nome,"desc":produto.desc,"preco":value});
 // }
 
-
-
-//Primeira forma de input com useState
-
-// return (
+// //1ª FORMA DE INPUT COM useState
+// <form>
+// <fieldset>
+//   <legend>Produto Selecionado</legend>
 //   <div>
-//       <h1>Editar Produtos</h1>
-//         <div>
-//           <form>
-//             <fieldset>
-//               <legend>Produto Selecionado</legend>
-//               <div>
-//                 <label htmlFor="">Nome:</label>
-//                 <input type="text" name="nome" placeholder="Digite o nome do Produto." value={(produto.nome)} onChange={(e)=>setProduto(e.target.value)}/>
-//               </div>
-//               <div>
-//                 <label htmlFor="">Descrição:</label>
-//                 <input type="text" name="desc" placeholder="Digite a descrição do Produto." value={(produto.desc)} onChange={(e)=>setProduto(e.target.value)}/>
-//               </div>
-//               <div>
-//                 <label htmlFor="">Preço:</label>
-//                 <input type="text" name="preco" placeholder="Digite o preço do Produto." value={(produto.preco)} onChange={(e)=>setProduto(e.target.value)}/>
-//               </div>
-//               <div>
-//                 <button>EDITAR</button>
-//               </div>
-//             </fieldset>
-//           </form>
-//         </div>
-
+//     <label htmlFor="">Nome:</label>
+//     <input type="text" name="nome" placeholder="Digite o nome do Produto." value={produto.nome} onChange={(e)=> setProduto(e.target.value)}/>
 //   </div>
-// )
-// }
+//   <div>
+//     <label htmlFor="">Descrição:</label>
+//     <input type="text" name="desc" placeholder="Digite a descrição do Produto." value={produto.desc} onChange={(e)=> setProduto(e.target.value)}/>
+//   </div>
+//   <div>
+//     <label htmlFor="">Preço:</label>
+//     <input type="text" name="preco" placeholder="Digite o preço do Produto." value={produto.preco} onChange={(e)=> setProduto(e.target.value)}/>
+//   </div>
+//   <div>
+//     <button>EDITAR</button>
+//   </div>
+// </fieldset>
+// </form>
