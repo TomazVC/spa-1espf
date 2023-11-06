@@ -1,88 +1,102 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditarProdutos() {
+  const { id } = useParams();
+  const navigation = useNavigate();
 
-    const {id} = useParams();
-    const navigation = useNavigate()
+  document.title = "Editar Produtos " + id;
 
-    document.title = "Editar Produtos " + id; 
+  const [produto, setProduto] = useState({
+    id: id,
+    nome: "",
+    desc: "",
+    preco: "",
+  });
 
-    const[produto,setProduto] = useState({
-      id:id,
-      nome:'',
-      desc:'',
-      preco:''
-    });
+  //Criar uma estratégia para recuperar o produto da API-JSON com fetch, utilizando GET:
+  useEffect(() => {
+    fetch(`http://localhost:5000/produtos/${id}`)
+      .then((response) => response.json())
+      .then((response) => setProduto(response))
+      .catch((error) => console.log(error));
+  }, [id]);
 
-    //Criar uma estratégia para recuperar o produto da API-JSON com fetch, utilizando GET:
-    useEffect(()=>{
-      
-      fetch(`http://localhost:5000/produtos/${id}`)
-      .then((response)=> response.json())
-      .then((response)=> setProduto(response))
-      .catch(error=> console.log(error));
+  const handleChange = (e) => {
+    //Destructuring
+    const { name, value } = e.target;
 
-    },[id]);
-    
-    const handleChange = (e)=>{
+    //Setando os dados diretamente no objeto atravé de SPREAD
+    setProduto({ ...produto, [name]: value });
+  };
 
-      //Destructuring
-      const {name,value} = e.target;
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-      //Setando os dados diretamente no objeto atravé de SPREAD
-      setProduto({...produto,[name]:value});
-      
-    }
+    fetch(`http://localhost:5000/produtos/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(produto),
+    })
+      .then((response) =>
+        console.log(
+          "Dados alterado com sucesso - STATUS CODE : " + response.status
+        )
+      )
+      .catch((error) => console.log(error));
 
-    const handleSubmit = (e) =>{
-      e.preventDefault();
-   
-        fetch(`http://localhost:5000/produtos/${id}`,{
-          method:"PUT",
-          headers:{
-            "Content-Type":"application/json"
-          },
-          body: JSON.stringify(produto)
-        })
-        .then((response)=> console.log("Dados alterado com sucesso - STATUS CODE : " + response.status))
-        .catch(error=> console.log(error));
-
-        //Redirect
-        navigation("/produtos");
-    }
+    //Redirect
+    navigation("/produtos");
+  };
 
   return (
     <div>
-        <h1>Editar Produtos</h1>
-          <div>
-            <form onSubmit={handleSubmit}>
-              <fieldset>
-                <legend>Produto Selecionado</legend>
-                <div>
-                  <label htmlFor="">Nome:</label>
-                  <input type="text" name="nome" placeholder="Digite o nome do Produto." value={produto.nome} onChange={handleChange}/>
-                </div>
-                <div>
-                  <label htmlFor="">Descrição:</label>
-                  <input type="text" name="desc" placeholder="Digite a descrição do Produto." value={produto.desc} onChange={handleChange}/>
-                </div>
-                <div>
-                  <label htmlFor="">Preço:</label>
-                  <input type="text" name="preco" placeholder="Digite o preço do Produto." value={produto.preco} onChange={handleChange}/>
-                </div>
-                <div>
-                  <button>EDITAR</button>
-                </div>
-              </fieldset>
-            </form>
-          </div>
-
+      <h1>Editar Produtos</h1>
+      <div>
+        <form onSubmit={handleSubmit}>
+          <fieldset>
+            <legend>Produto Selecionado</legend>
+            <div>
+              <label htmlFor="">Nome:</label>
+              <input
+                type="text"
+                name="nome"
+                placeholder="Digite o nome do Produto."
+                value={produto.nome}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="">Descrição:</label>
+              <input
+                type="text"
+                name="desc"
+                placeholder="Digite a descrição do Produto."
+                value={produto.desc}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="">Preço:</label>
+              <input
+                type="text"
+                name="preco"
+                placeholder="Digite o preço do Produto."
+                value={produto.preco}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <button>EDITAR</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
     </div>
-  )
+  );
 }
-
-
 
 //2ª FORM DE INPUT COM useState
 // if(name == "nome"){
